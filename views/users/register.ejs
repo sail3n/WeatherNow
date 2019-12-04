@@ -7,7 +7,7 @@
     <div class="container">
       <h2>Register Form</h2>
       <div class="form-wrap">
-        <form action="/">
+        <form action="" method="POST" id="registerForm">
           <div class="form-group">
             <label class="control-label col-sm-3" for="name">Full Name:</label>
             <div class="col-sm-9">
@@ -56,7 +56,7 @@
                 class="form-control"
                 id="pwd"
                 placeholder="Enter password"
-                name="pwd"
+                name="password"
                 required
               />
             </div>
@@ -70,4 +70,30 @@
       </div>
     </div>
   </body>
+  <script>
+    $(document).ready(function(e) {
+      $("#registerForm").submit(e => {
+        e.preventDefault();
+        sendData();
+      });
+    });
+
+    function sendData() {
+      var unindexed_array = $("#registerForm").serializeArray();
+      var indexed_array = {};
+
+      $.map(unindexed_array, function(n, i) {
+        indexed_array[n["name"]] = n["value"];
+      });
+
+      $.ajax({
+        url: "/api/users",
+        method: "POST",
+        data: indexed_array
+      }).done(data => {
+        $("#registerForm")[0].reset();
+        window.location.replace("/");
+      });
+    }
+  </script>
 </html>

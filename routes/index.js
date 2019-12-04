@@ -1,13 +1,8 @@
-var express = require("express");
-var router = express.Router();
+var router = require("express").Router();
+const apiRouter = require("./api.routes");
+const uiRouter = require("./ui.routes");
 
-/* GET home page. */
-router.get("/", function(req, res, next) {
-  res.render("index", { title: "WeatherNow" });
-});
-
-router.get("/user/register", function(req, res, next) {
-  res.render("users/register", { title: "WeatherNow" });
-});
+router.use("/api", apiRouter);
+router.use("/", uiRouter);
 
 module.exports = router;
