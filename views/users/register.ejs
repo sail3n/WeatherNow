@@ -91,6 +91,7 @@
         method: "POST",
         data: indexed_array
       }).done(data => {
+        console.log("hello");
         $("#registerForm")[0].reset();
         window.location.replace("/");
       });
