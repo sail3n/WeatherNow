@@ -24,8 +24,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", routeManager);
-// app.use("/", indexRouter);
-// app.use("/users", usersRouter);
 
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
