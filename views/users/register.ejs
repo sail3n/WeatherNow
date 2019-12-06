@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <% include ../_layouts/head %>
+  </head>
+  <body>
+    <% include ../_layouts/header %>
+    <div class="container">
+      <h2 style="text-align: center;">Register Form</h2>
+      <div class="row">
+        <form action="" method="POST" id="registerForm">
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="name">Full Name:</label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="fullName"
+                placeholder="Enter your full name"
+                name="name"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="location">Location:</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="location"
+                placeholder="Enter your location"
+                name="location"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email:</label>
+            <div class="col-sm-10">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Enter email"
+                name="email"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd">Password:</label>
+            <div class="col-sm-10">
+              <input
+                type="password"
+                class="form-control"
+                id="pwd"
+                placeholder="Enter password"
+                name="password"
+                required
+              />
+            </div>
+          </div>
+          <div class="alert alert-danger" role="alert" id="errorAlert" style="display:none">
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function(e) {
+      $("#registerForm").submit(e => {
+        e.preventDefault();
+        sendData();
+      });
+    });
+
+    function sendData() {
+      var unindexed_array = $("#registerForm").serializeArray();
+      var indexed_array = {};
+
+      $.map(unindexed_array, function(n, i) {
+        indexed_array[n["name"]] = n["value"];
+      });
+      $.ajax({
+        url: "/api/users",
+        method: "POST",
+        data: indexed_array
+      }).then(data => {
+        $("#registerForm")[0].reset();
+        window.location.replace("/");
+      }).catch(e=> {
+        $("#errorAlert").show();
+        let err = e.responseText.match(/<h1>(.*?)<\/h1>/g).map(function(val){
+            return val.replace(/<\/?h1>/g,'');
+         });
+         $("#errorAlert").append(err);
+
+
+      });
+    }
+  </script>
+</html>
