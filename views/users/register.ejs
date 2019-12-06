@@ -5,7 +5,7 @@
   <body>
     <% include ../_layouts/header %>
     <div class="container">
-      <h2>Register Form</h2>
+      <h2 style="text-align: center;top: 70px;">Register Form</h2>
       <div class="form-wrap">
         <form action="" method="POST" id="registerForm">
           <div class="form-group">
@@ -90,11 +90,15 @@
         url: "/api/users",
         method: "POST",
         data: indexed_array
-      }).done(data => {
-        console.log("hello");
-        $("#registerForm")[0].reset();
-        window.location.replace("/");
-      });
+      })
+        .done(data => {
+          $("#registerForm")[0].reset();
+          window.location.replace("/");
+        })
+        .fail(e => {
+          // window.location.reload("/");
+          // console.log(e.JSON());
+        });
     }
   </script>
 </html>

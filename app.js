@@ -11,7 +11,7 @@ var routeManager = require("./routes");
 // var usersRouter = require("./routes/users");
 
 var app = express();
-mongoose.connect(config.get("db.url"));
+mongoose.connect(config.get("db.url"), { useNewUrlParser: true, useUnifiedTopology: true });
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
