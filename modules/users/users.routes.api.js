@@ -1,16 +1,25 @@
 const router = require("express").Router();
 const UserController = require("./users.controller");
-const validator = require("./users.validation");
-const UserModel = require("./users.model");
+let schema = require("../validation/validation.schema");
+let validate = require("../validation/validateMiddleware.js");
+const cookie = require("cookiejar");
 
 router.post("/", async (req, res, next) => {
-  let user = await UserModel.findOne({ email: req.body.email });
-  if (user) {
-    res.redirect("back");
-  }
-  await UserController.save(req.body)
+  UserController.save(req.body)
     .then(d => res.json(d))
-    .catch(e => next(e));
+    .catch(e => console.log(e));
 });
+
+router.post("/login", async (req, res, next) => {
+  UserController.login(req.body)
+    .then(d => res.json(d))
+    .catch(e => console.log(e));
+});
+
+// router.post("/",validate(schema.userDetails), async (req, res, next) => {
+//   UserController.save(req.body)
+//     .then(d => res.json(d))
+//     .catch(e => console.log(e));
+// });
 
 module.exports = router;
