@@ -2,12 +2,29 @@
   <head>
     <% include ./_layouts/head %>
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <style>
+      p {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .container {
+        margin-top: 10px;
+        background-color: lightblue;
+        text-align: center;
+        width: fit-content;
+        line-height: 2em;
+      }
+    </style>
   </head>
   <body>
     <% include ./_layouts/header %>
-    <div class="wrapper">
-      <a class="btn btn-primary" href="/users/register">Register</a>
-      <a class="btn btn-primary" href="/weather">Weather</a>
+    <div class="container">
+      <h3><b> Get your local weather at your request</b></h3>
+      <a href="/users/register"><b>Register</b></a> now to get started
+      <p>
+        If you are already registered then <a href="/users/login"><b>login</b></a> from here
+      </p>
     </div>
   </body>
 </html>

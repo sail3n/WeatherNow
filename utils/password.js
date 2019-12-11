@@ -8,6 +8,7 @@ var HASH_ITERATIONS = 1000; // Number of pbkdf2 iterations
 function generateSalt() {
   return new Promise((resolve, reject) => {
     crypto.randomBytes(SALT_LENGTH, (err, salt) => {
+      salt = salt.toString(`hex`);
       if (err) reject(err);
       resolve(salt);
     });
@@ -26,6 +27,7 @@ function generateToken() {
 function hash(data, salt) {
   return new Promise((resolve, reject) => {
     crypto.pbkdf2(data, salt, HASH_ITERATIONS, HASH_LENGTH, "sha1", (err, hash) => {
+      hash = hash.toString(`hex`);
       if (err) {
         reject(err);
       }
@@ -42,18 +44,5 @@ function saltAndHash(data) {
     return hash(data, salt);
   });
 }
-
-// function compare(password, original) {
-//   return new Promise((resolve, reject) => {
-//     crypto.pbkdf2(password, original.salt, HASH_ITERATIONS, HASH_LENGTH, "sha1", (err, hash) => {
-//       console.log(hash);
-//       console.log(original.hash);
-//       if (hash === original.hash) {
-//         resolve(true);
-//       }
-//       resolve(false);
-//     });
-//   });
-// }
 
 module.exports = { generateSalt, generateToken, hash, saltAndHash };
