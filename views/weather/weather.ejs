@@ -13,6 +13,12 @@
         transform: translateX(-50%);
         line-height: 1.5em;
       }
+      #logoutBtn {
+        top: 5px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
       .panel {
         width: 200px;
       }
@@ -37,7 +43,7 @@
     <div class="container">
       <h3 style="text-align: center;">Your Weather Data</h3>
       <div class="dataList">
-        <div class="panel-left " style="text-align: center float: left;;">
+        <div class="panel-left ">
           <p>Latitude: <b><%= weatherData[0] %></b></p>
           <p>Longitude:<b><%= weatherData[1] %></b></p>
           <p>Pressure: <b><%= weatherData[2] %> hPa</b></p>
@@ -58,6 +64,7 @@
           <p>Sunset: <b><%= weatherData[9] %> P.M</b></p>
         </div>
       </div>
+      <a class="btn btn-primary" href="/users/logout" id="logoutBtn">Logout</a>
     </div>
   </body>
   <script></script>

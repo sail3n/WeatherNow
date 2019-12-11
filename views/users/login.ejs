@@ -38,6 +38,7 @@
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-primary">Login</button>
+              Are you new??<u><a href="/users/register">Register</a></u>
             </div>
           </div>
         </form>
@@ -65,7 +66,7 @@
       })
         .then(data => {
           $("#loginForm")[0].reset();
-          window.location.replace("/");
+          window.location.replace("/weather");
         })
         .catch(e => {
           console.log(e);

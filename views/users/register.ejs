@@ -28,7 +28,7 @@
                 type="text"
                 class="form-control"
                 id="location"
-                placeholder="Enter your location"
+                placeholder="Enter your city"
                 name="location"
                 required
               />
@@ -61,11 +61,11 @@
               />
             </div>
           </div>
-          <div class="alert alert-danger" role="alert" id="errorAlert" style="display:none">
-          </div>
+          <div class="alert alert-danger" role="alert" id="errorAlert" style="display:none"></div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-primary">Register</button>
+              Already have an account?<u><a href="/users/login">Login</a></u>
             </div>
           </div>
         </form>
@@ -91,18 +91,18 @@
         url: "/api/users",
         method: "POST",
         data: indexed_array
-      }).then(data => {
-        $("#registerForm")[0].reset();
-        window.location.replace("/");
-      }).catch(e=> {
-        $("#errorAlert").show();
-        let err = e.responseText.match(/<h1>(.*?)<\/h1>/g).map(function(val){
-            return val.replace(/<\/?h1>/g,'');
-         });
-         $("#errorAlert").append(err);
-
-
-      });
+      })
+        .then(data => {
+          $("#registerForm")[0].reset();
+          window.location.replace("/weather");
+        })
+        .catch(e => {
+          $("#errorAlert").show();
+          let err = e.responseText.match(/<h1>(.*?)<\/h1>/g).map(function(val) {
+            return val.replace(/<\/?h1>/g, "");
+          });
+          $("#errorAlert").append(err);
+        });
     }
   </script>
 </html>

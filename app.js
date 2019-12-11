@@ -1,4 +1,3 @@
-var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
@@ -24,8 +23,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", routeManager);
-// app.use("/", indexRouter);
-// app.use("/users", usersRouter);
 
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
