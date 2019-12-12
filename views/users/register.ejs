@@ -95,7 +95,7 @@
         indexed_array[n["name"]] = n["value"];
       });
       $.ajax({
-        url: "/api/users",
+        url: "/api/users/register",
         method: "POST",
         data: indexed_array
       })

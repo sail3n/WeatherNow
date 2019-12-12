@@ -6,9 +6,6 @@ var config = require("config");
 var mongoose = require("mongoose");
 var routeManager = require("./routes");
 
-// var indexRouter = require("./routes/index");
-// var usersRouter = require("./routes/users");
-
 var app = express();
 mongoose.connect(config.get("db.url"), { useNewUrlParser: true, useUnifiedTopology: true });
 

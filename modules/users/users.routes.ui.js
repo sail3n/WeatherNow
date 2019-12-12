@@ -10,6 +10,7 @@ router.get("/login", function(req, res, next) {
 
 router.get("/logout", function(req, res, next) {
   res.clearCookie("user");
+  res.clearCookie("auth");
   res.redirect("/users/login");
 });
 
