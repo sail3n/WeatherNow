@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { ERR } = require("../../utils/error");
 
 function epochConverter(payload) {
   var date = new Date(payload * 1000);
@@ -20,6 +21,7 @@ class Weather {
         payload +
         ",np&appId=257b6bb08cf331a786ca294ef699ebb4&units=metric"
     };
+
     return await axios(config)
       .then(response => {
         var x = response.data;
@@ -63,9 +65,8 @@ class Weather {
         ];
         return weather;
       })
-      .catch(error => {
-        console.log(error);
-        return error;
+      .catch(e => {
+        return e.response.status;
       });
   }
 }

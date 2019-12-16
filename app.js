@@ -8,6 +8,7 @@ var routeManager = require("./routes");
 
 var app = express();
 mongoose.connect(config.get("db.url"), { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.set("useFindAndModify", false);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -41,7 +42,7 @@ app.use(function(req, res, next) {
 app.use(function(req, res, next) {
   var err = new Error("Not Found");
   err.status = 404;
-  next(err);
+  res.render("error", { title: "WeatherNow", message: "404 Not Found" });
 });
 
 // error handler
@@ -52,7 +53,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  next(err);
 });
 
 module.exports = app;

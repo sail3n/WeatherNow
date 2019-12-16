@@ -76,7 +76,11 @@
           window.location.replace("/weather");
         })
         .catch(e => {
-          console.log(e);
+          let err = e.responseText.match(/<pre>(.*?)<br>/g).map(function(val) {
+            return val.replace("<pre>Error:", "");
+          });
+          document.getElementById("errorAlert").innerHTML = err;
+          $("#errorAlert").show();
         });
     }
   </script>

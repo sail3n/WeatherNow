@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <% include ../_layouts/head %>
+    <style>
+      .container {
+        margin-top: 10px;
+        background-color: lightblue;
+        width: fit-content;
+      }
+    </style>
+  </head>
+  <body>
+    <% include ../_layouts/header %>
+    <div class="container">
+      <h2 style="text-align: center;">Update Location Form</h2>
+      <div class="row">
+        <form action="" method="POST" id="updateForm">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="location">Location:</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="location"
+                placeholder="Enter your city"
+                name="location"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="alert alert-danger" role="alert" id="errorAlert" style="display:none"></div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary">
+                Update
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function(e) {
+      $("#updateForm").submit(e => {
+        e.preventDefault();
+        sendData();
+      });
+    });
+    function sendData() {
+      var unindexed_array = $("#updateForm").serializeArray();
+      var indexed_array = {};
+
+      $.map(unindexed_array, function(n, i) {
+        indexed_array[n["name"]] = n["value"];
+      });
+
+      $.ajax({
+        url: "/api/users/update",
+        method: "POST",
+        data: indexed_array
+      })
+        .done(data => {
+          $("#updateForm")[0].reset();
+          window.location.replace("/weather");
+        })
+        .fail(e => {
+          document.getElementById("errorAlert").innerHTML = "Update Failed";
+          $("#errorAlert").show();
+        });
+    }
+  </script>
+</html>

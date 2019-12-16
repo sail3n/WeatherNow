@@ -1,9 +1,10 @@
 const router = require("express").Router();
 const UserController = require("./users.controller");
-let schema = require("../validation/validation.schema");
 let validate = require("../validation/validateMiddleware.js");
+const schema = require("../validation/validation.schema");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const auth = require("../../utils/auth");
 
 router.post("/register", validate(schema.userDetails), async (req, res, next) => {
   try {
@@ -36,7 +37,7 @@ router.post("/login", async (req, res, next) => {
       config.get("jwt.jwtPrivateKey"),
       { expiresIn: "5m" }
     );
-    res.cookie("user", user);
+    res.cookie("user", user._id);
     res.cookie("auth", token);
     res.json(user);
   } catch (e) {
@@ -44,10 +45,14 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-// router.post("/register",validate(schema.userDetails), async (req, res, next) => {
-//   UserController.save(req.body)
-//     .then(d => res.json(d))
-//     .catch(e => console.log(e));
-// });
+router.post("/update", auth, async (req, res, next) => {
+  try {
+    var userId = req.cookies["user"];
+    await UserController.update(userId, req.body);
+    next();
+  } catch (e) {
+    next(e);
+  }
+});
 
 module.exports = router;

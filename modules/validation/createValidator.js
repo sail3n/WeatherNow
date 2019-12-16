@@ -1,11 +1,10 @@
-let Joi = require('@hapi/joi')
+let Joi = require("joi");
 
-const createValidator = (schema) => 
-  (payload) => {
-    return Joi.validate(payload, schema, {
-      // shows all error messages instead of first error message
-      abortEarly: false
-    })
-  }
+const createValidator = schema => payload => {
+  return Joi.validate(payload, schema, {
+    // shows all error messages instead of first error message
+    abortEarly: false
+  });
+};
 
-module.exports = createValidator
+module.exports = createValidator;
