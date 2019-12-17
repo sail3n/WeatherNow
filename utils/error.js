@@ -20,7 +20,8 @@ const ERR = {
   DEFAULT: new RSError("Error Occured", "none", 500),
   AUTH_FAIL: new RSError("Authentication failed. Please try again.", "auth_fail", 401),
   PASS_MISMATCH: new RSError("Incorrect Password", "pass_mismatch", 400),
-  USER_NOEXISTS: new RSError("User with this email does not exists.", "user_noexists", 400)
+  USER_NOEXISTS: new RSError("User with this email does not exists.", "user_noexists", 400),
+  USER_EXISTS: new RSError("User already exists", "user_exists", 400)
 };
 
 const throwError = err => {

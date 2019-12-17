@@ -106,11 +106,19 @@
           window.location.replace("/weather");
         })
         .fail(e => {
-          let err = e.responseText.match(/<pre>(.*?)<\/pre>/g).map(function(val) {
-            return val.replace(/<\/?pre>/g, "");
-          });
-          document.getElementById("errorAlert").innerHTML = err;
-          $("#errorAlert").show();
+          if (e.status === 500) {
+            let err = e.responseText.match(/<pre>(.*?)<\/pre>/g).map(function(val) {
+              return val.replace(/<\/?pre>/g, "");
+            });
+            document.getElementById("errorAlert").innerHTML = err;
+            $("#errorAlert").show();
+          } else {
+            let err = e.responseText.match(/<pre>(.*?)<br>/g).map(function(val) {
+              return val.replace("<pre>Error:", "");
+            });
+            document.getElementById("errorAlert").innerHTML = err;
+            $("#errorAlert").show();
+          }
         });
     }
   </script>

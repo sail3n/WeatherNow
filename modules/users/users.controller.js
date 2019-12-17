@@ -5,8 +5,13 @@ const { ERR } = require("../../utils/error");
 class Users {
   constructor() {}
   async save(payload) {
-    payload.password = await crypto.saltAndHash(payload.password);
-    return UserModel.create(payload);
+    let user = await UserModel.findOne({ email: payload.email });
+    if (user) {
+      throw ERR.USER_EXISTS;
+    } else {
+      payload.password = await crypto.saltAndHash(payload.password);
+      return UserModel.create(payload);
+    }
   }
   async login(payload) {
     let user = await UserModel.findOne({ email: payload.email });
